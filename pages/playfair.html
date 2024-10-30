@@ -1,0 +1,171 @@
+<!-- playfair.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playfair Cipher</title>
+    <style>
+        :root {
+            --primary-blue: #e6f3ff;
+            --accent-blue: #2196F3;
+            --hover-blue: #1976D2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            background-color: var(--primary-blue);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab {
+            padding: 12px 30px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        
+        textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            width: 200px;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        label {
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .matrix-container {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .matrix-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #444;
+            font-weight: 500;
+        }
+        
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .matrix-cell {
+            background: var(--primary-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-blue);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Playfair Cipher</h1>
+        <div class="tab-container">
+            <button class="tab active" id="encodeTab">Encode</button>
+            <button class="tab" id="decodeTab">Decode</button>
+        </div>
+        <div class="controls">
+            <label for="key">Key:</label>
+            <input type="text" id="key" placeholder="Enter key...">
+        </div>
+        <div>
+            <label for="input">Enter Text:</label>
+            <textarea id="input" rows="4" placeholder="Start typing..."></textarea>
+        </div>
+        <div>
+            <label for="output">Result:</label>
+            <textarea id="output" rows="4" readonly></textarea>
+        </div>
+        
+        <div class="matrix-container">
+            <div class="matrix-title">Playfair Matrix</div>
+            <div class="matrix-grid" id="matrixGrid">
+                <!-- Matrix cells will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script src="/js/playfair.js"></script>
+</body>
+</html>

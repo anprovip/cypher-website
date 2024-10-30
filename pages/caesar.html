@@ -1,0 +1,175 @@
+<!-- caesar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher</title>
+    <style>
+        :root {
+            --primary-blue: #e6f3ff;
+            --accent-blue: #2196F3;
+            --hover-blue: #1976D2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            background-color: var(--primary-blue);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab {
+            padding: 12px 30px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        
+        textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        input[type="number"] {
+            width: 80px;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        label {
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .alphabet-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .alphabet-table th,
+        .alphabet-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #eee;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .alphabet-table thead th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .shifted-row {
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Caesar Cipher</h1>
+        <div class="tab-container">
+            <button class="tab active" id="encodeTab">Encode</button>
+            <button class="tab" id="decodeTab">Decode</button>
+        </div>
+        <div>
+            <label for="input">Enter Text:</label>
+            <textarea id="input" rows="4" placeholder="Start typing..."></textarea>
+        </div>
+        <div class="controls">
+            <label for="shift">Shift (1-25):</label>
+            <input type="number" id="shift" min="1" max="25" value="3">
+        </div>
+        <div>
+            <label for="output">Result:</label>
+            <textarea id="output" rows="4" readonly></textarea>
+        </div>
+        
+        <table class="alphabet-table">
+            <thead>
+                <tr>
+                    <th>Original:</th>
+                    <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th>
+                    <th>N</th><th>O</th><th>P</th><th>Q</th><th>R</th><th>S</th><th>T</th><th>U</th><th>V</th><th>W</th><th>X</th><th>Y</th><th>Z</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="shifted-row">
+                    <th>Shifted:</th>
+                    <td>D</td><td>E</td><td>F</td><td>G</td><td>H</td><td>I</td><td>J</td><td>K</td><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td>
+                    <td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td><td>A</td><td>B</td><td>C</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="/js/caesar.js"></script>
+</body>
+</html>
+
