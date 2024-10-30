@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <div class="title">Classical Programming</div>
+            <div class="item">
+                <div class="item-name">Caesar Cipher</div>
+                <div class="item-description">Simple substitution cipher</div>
+            </div>
+            <div class="item">
+                <div class="item-name">Playfair Cipher</div>
+                <div class="item-description">Digraph substitution cipher</div>
+            </div>
+            <div class="item">
+                <div class="item-name">Permutation Cipher</div>
+                <div class="item-description">Transposition-based encryption</div>
+            </div>
+            <div class="item">
+                <div class="item-name">Single Letter Cipher</div>
+                <div class="item-description">Basic monoalphabetic substitution</div>
+            </div>
+            <div class="item">
+                <div class="item-name">Vigenère Cipher</div>
+                <div class="item-description">Polyalphabetic substitution</div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="title">Modern Programming</div>
+            <div class="item">
+                <div class="item-name">RSA</div>
+                <div class="item-description">Public-key cryptography system</div>
+            </div>
+            <div class="item">
+                <div class="item-name">AES</div>
+                <div class="item-description">Advanced Encryption Standard</div>
+            </div>
+            <div class="item">
+                <div class="item-name">DES</div>
+                <div class="item-description">Data Encryption Standard</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const pages = {
+            'Caesar Cipher': 'pages/caesar.html',
+            'Playfair Cipher': 'pages/playfair.html',
+            'Permutation Cipher': 'pages/permutation.html',
+            'Single Letter Cipher': 'pages/singleletter.html',
+            'Vigenère Cipher': 'pages/vigenere.html',
+            'RSA': 'pages/rsa.html',
+            'AES': 'pages/aes.html',
+            'DES': 'pages/des.html'
+        };
+
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('click', () => {
+                const name = item.querySelector('.item-name').textContent;
+                if (pages[name]) {
+                    window.location.href = pages[name];
+                }
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('mouseover', () => {
+                item.style.backgroundColor = '#87CEFA'; // Darker blue on hover
+            });
+            
+            item.addEventListener('mouseout', () => {
+                item.style.backgroundColor = '#1E90FF'; // Return to original color
+            });
+        });
+    </script>
+</body>
+</html>

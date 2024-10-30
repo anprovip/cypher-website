@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .controls {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .mode-switch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Caesar Cipher</h1>
+        <div class="mode-switch">
+            <span>Encrypt</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="modeToggle">
+                <span class="slider"></span>
+            </label>
+            <span>Decrypt</span>
+        </div>
+        <div>
+            <label for="input">Enter Text:</label>
+            <textarea id="input" rows="4" placeholder="Start typing..."></textarea>
+        </div>
+        <div class="controls">
+            <label for="shift">Shift (1-25):</label>
+            <input type="number" id="shift" min="1" max="25" value="3">
+        </div>
+        <div>
+            <label for="output">Result:</label>
+            <textarea id="output" rows="4" readonly></textarea>
+        </div>
+    </div>
+
+    <div class="alphabet-display" style="margin: 20px 0; font-family: monospace; font-size: 1.2em;">
+        <table style="width: 100%; text-align: center; border-collapse: collapse; border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">Original:</th>
+                    <th style="border: 1px solid black;">A</th>
+                    <th style="border: 1px solid black;">B</th>
+                    <th style="border: 1px solid black;">C</th>
+                    <th style="border: 1px solid black;">D</th>
+                    <th style="border: 1px solid black;">E</th>
+                    <th style="border: 1px solid black;">F</th>
+                    <th style="border: 1px solid black;">G</th>
+                    <th style="border: 1px solid black;">H</th>
+                    <th style="border: 1px solid black;">I</th>
+                    <th style="border: 1px solid black;">J</th>
+                    <th style="border: 1px solid black;">K</th>
+                    <th style="border: 1px solid black;">L</th>
+                    <th style="border: 1px solid black;">M</th>
+                    <th style="border: 1px solid black;">N</th>
+                    <th style="border: 1px solid black;">O</th>
+                    <th style="border: 1px solid black;">P</th>
+                    <th style="border: 1px solid black;">Q</th>
+                    <th style="border: 1px solid black;">R</th>
+                    <th style="border: 1px solid black;">S</th>
+                    <th style="border: 1px solid black;">T</th>
+                    <th style="border: 1px solid black;">U</th>
+                    <th style="border: 1px solid black;">V</th>
+                    <th style="border: 1px solid black;">W</th>
+                    <th style="border: 1px solid black;">X</th>
+                    <th style="border: 1px solid black;">Y</th>
+                    <th style="border: 1px solid black;">Z</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="color: #4CAF50;">
+                    <th style="border: 1px solid black;">Shifted:</th>
+                    <td style="border: 1px solid black;">D</td>
+                    <td style="border: 1px solid black;">E</td>
+                    <td style="border: 1px solid black;">F</td>
+                    <td style="border: 1px solid black;">G</td>
+                    <td style="border: 1px solid black;">H</td>
+                    <td style="border: 1px solid black;">I</td>
+                    <td style="border: 1px solid black;">J</td>
+                    <td style="border: 1px solid black;">K</td>
+                    <td style="border: 1px solid black;">L</td>
+                    <td style="border: 1px solid black;">M</td>
+                    <td style="border: 1px solid black;">N</td>
+                    <td style="border: 1px solid black;">O</td>
+                    <td style="border: 1px solid black;">P</td>
+                    <td style="border: 1px solid black;">Q</td>
+                    <td style="border: 1px solid black;">R</td>
+                    <td style="border: 1px solid black;">S</td>
+                    <td style="border: 1px solid black;">T</td>
+                    <td style="border: 1px solid black;">U</td>
+                    <td style="border: 1px solid black;">V</td>
+                    <td style="border: 1px solid black;">W</td>
+                    <td style="border: 1px solid black;">X</td>
+                    <td style="border: 1px solid black;">Y</td>
+                    <td style="border: 1px solid black;">Z</td>
+                    <td style="border: 1px solid black;">A</td>
+                    <td style="border: 1px solid black;">B</td>
+                    <td style="border: 1px solid black;">C</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="/js/caesar.js"></script>
+
+    
+</body>
+</html>
