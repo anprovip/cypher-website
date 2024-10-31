@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES Encryption</title>
+    <style>
+        :root {
+            --primary-blue: #e6f3ff;
+            --accent-blue: #2196F3;
+            --hover-blue: #1976D2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            background-color: var(--primary-blue);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 15px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        button {
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--hover-blue);
+        }
+        
+        .steps {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 3px solid var(--accent-blue);
+            background: #f8f9fa;
+        }
+        
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .matrix-cell {
+            background: #fff;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+    <style>
+        /* Additional styles for matrix display */
+        .state-matrix {
+            display: inline-block;
+            margin: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .matrix-row {
+            display: flex;
+            justify-content: center;
+            margin: 2px 0;
+        }
+
+        .matrix-cell {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 2px;
+            font-family: monospace;
+        }
+
+        /* Responsive design additions */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            .matrix-cell {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+        }
+
+        /* Animation for state changes */
+        .step {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AES Encryption</h1>
+        
+        <div class="input-group">
+            <label for="key">Key (16 bytes in hex, space-separated):</label>
+            <input type="text" id="key" placeholder="Enter 4 hex values" value="2B 28 AB 09">
+        </div>
+        
+        <div class="input-group">
+            <label for="state">State (16 bytes in hex, space-separated):</label>
+            <input type="text" id="state" placeholder="Enter 4 hex values" value="32 43 F6 A8">
+        </div>
+        
+        <button onclick="encrypt()">Encrypt</button>
+        
+        <div id="steps" class="steps">
+            <!-- Encryption steps will be shown here -->
+        </div>
+    </div>
+    <script src="/js/aes.js"></script>
+</body>
+
