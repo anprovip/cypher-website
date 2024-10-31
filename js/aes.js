@@ -1,3 +1,4 @@
+
 // Format a word as hex string
 function formatHex(word) {
     return word.toString(16).padStart(8, '0').toUpperCase();
@@ -173,6 +174,7 @@ function KeyExpansion(Key) {
     }
     return w;
 }
+
 
 function AddRoundKey(state, k) {
     const kq = new Uint32Array(4);
