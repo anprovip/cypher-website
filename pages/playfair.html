@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,125 +6,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playfair Cipher</title>
     <style>
+        :root {
+            --primary-blue: #e6f3ff;
+            --accent-blue: #2196F3;
+            --hover-blue: #1976D2;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f0f0f0;
+            background-color: #ffffff;
         }
+        
         .container {
-            background-color: white;
+            background-color: var(--primary-blue);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab {
+            padding: 12px 30px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        
+        textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            width: 200px;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        label {
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .matrix-container {
+            margin-top: 30px;
+            background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        .matrix {
-            display: grid;
-            grid-template-columns: repeat(5, 40px);
-            gap: 2px;
-            margin: 20px 0;
-        }
-        .matrix-cell {
-            width: 40px;
-            height: 40px;
-            background-color: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #dee2e6;
-        }
-        .input-group {
+        
+        .matrix-title {
+            text-align: center;
             margin-bottom: 15px;
+            color: #444;
+            font-weight: 500;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
+        
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .matrix-cell {
+            background: var(--primary-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-blue);
             border-radius: 4px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f8f9fa;
+
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Playfair Cipher</h1>
-        
-        <div class="input-group">
-            <label for="key">Enter Key:</label>
-            <input type="text" id="key" placeholder="Enter the key">
+        <div class="tab-container">
+            <button class="tab active" id="encodeTab">Encode</button>
+            <button class="tab" id="decodeTab">Decode</button>
+        </div>
+        <div class="controls">
+            <label for="key">Key:</label>
+            <input type="text" id="key" placeholder="Enter key...">
+        </div>
+        <div>
+            <label for="input">Enter Text:</label>
+            <textarea id="input" rows="4" placeholder="Start typing..."></textarea>
+        </div>
+        <div>
+            <label for="output">Result:</label>
+            <textarea id="output" rows="4" readonly></textarea>
         </div>
         
-        <div class="input-group">
-            <label for="plaintext">Enter Text:</label>
-            <input type="text" id="plaintext" placeholder="Enter text to encrypt/decrypt">
-        </div>
-
-        <button onclick="encrypt()">Encrypt</button>
-        <button onclick="decrypt()">Decrypt</button>
-
-        <h3>Playfair Matrix:</h3>
-        <div class="matrix" id="matrix">
-            <!-- Matrix cells will be generated by JavaScript -->
-        </div>
-
-        <div id="result">
-            <p><strong>Result:</strong> <span id="output"></span></p>
+        <div class="matrix-container">
+            <div class="matrix-title">Playfair Matrix</div>
+            <div class="matrix-grid" id="matrixGrid">
+                <!-- Matrix cells will be populated by JavaScript -->
+            </div>
         </div>
     </div>
-
-    <script>
-        function generateMatrix(key) {
-            // Implementation would go here
-            // This is a placeholder to show the matrix structure
-            const matrix = document.getElementById('matrix');
-            matrix.innerHTML = '';
-            const alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-            for(let i = 0; i < 25; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'matrix-cell';
-                cell.textContent = alphabet[i];
-                matrix.appendChild(cell);
-            }
-        }
-
-        function encrypt() {
-            const key = document.getElementById('key').value;
-            const plaintext = document.getElementById('plaintext').value;
-            generateMatrix(key);
-            // Actual encryption would go here
-            document.getElementById('output').textContent = 'Encrypted text will appear here';
-        }
-
-        function decrypt() {
-            const key = document.getElementById('key').value;
-            const ciphertext = document.getElementById('plaintext').value;
-            generateMatrix(key);
-            // Actual decryption would go here
-            document.getElementById('output').textContent = 'Decrypted text will appear here';
-        }
-
-        // Initialize empty matrix
-        generateMatrix('');
-    </script>
+    <script src="/js/playfair.js"></script>
 </body>
 </html>
+
