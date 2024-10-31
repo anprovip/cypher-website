@@ -1,80 +1,390 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptography Learning Hub</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f2f5;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e90ff, #4b6cb7);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Item Styles */
+        .item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid #3498db;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            background: #e8f4f8;
+        }
+
+        .item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover::after {
+            transform: scaleX(1);
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            background: #3498db;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: auto;
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        body.dark-theme .section {
+            background: #2d2d2d;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        body.dark-theme .item {
+            background: #3d3d3d;
+            border-left-color: #1e90ff;
+        }
+
+        body.dark-theme .item-name {
+            color: #fff;
+        }
+
+        body.dark-theme .item-description {
+            color: #ddd;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <button class="theme-toggle" title="Toggle theme">🌓</button>
+
+    <header class="header">
+        <h1>Cipher website</h1>
+        <p>Watch demos of encryption and decryption algorithms you learn in class</p>
+    </header>
+
+    <div class="breadcrumb">
+        <span>Home</span> > <span>Ciphers</span>
+    </div>
+
     <div class="container">
         <div class="section">
-            <div class="title">Classical Programming</div>
-            <div class="item">
-                <div class="item-name">Caesar Cipher</div>
-                <div class="item-description">Simple substitution cipher</div>
+            <div class="title">
+                <i class="fas fa-history"></i>
+                Classical Cipher
             </div>
             <div class="item">
-                <div class="item-name">Playfair Cipher</div>
-                <div class="item-description">Digraph substitution cipher</div>
+                <div class="item-name">
+                    <i class="fas fa-key"></i>
+                    Caesar Cipher
+                    <span class="badge">Classical</span>
+                </div>
+                <div class="item-description">A simple cipher that shifts each letter by a fixed number of positions</div>
             </div>
             <div class="item">
-                <div class="item-name">Permutation Cipher</div>
-                <div class="item-description">Transposition-based encryption</div>
+                <div class="item-name">
+                    <i class="fas fa-table"></i>
+                    Playfair Cipher
+                    <span class="badge">Classical</span>
+                </div>
+                <div class="item-description">Encrypts pairs of letters using a 5x5 matrix of alphabets</div>
             </div>
             <div class="item">
-                <div class="item-name">Substitution Cipher</div>
-                <div class="item-description">Basic monoalphabetic substitution</div>
+                <div class="item-name">
+                    <i class="fas fa-random"></i>
+                    Permutation Cipher
+                    <span class="badge">Classical</span>
+                </div>
+                <div class="item-description">Rearranges the order of characters in plaintext</div>
             </div>
             <div class="item">
-                <div class="item-name">Vigenère Cipher</div>
-                <div class="item-description">Polyalphabetic substitution</div>
+                <div class="item-name">
+                    <i class="fas fa-exchange-alt"></i>
+                    Substitution Cipher
+                    <span class="badge">Classical</span>
+                </div>
+                <div class="item-description">Replaces each letter with another letter using a fixed mapping</div>
+            </div>
+            <div class="item">
+                <div class="item-name">
+                    <i class="fas fa-keyboard"></i>
+                    Vigenère Cipher
+                    <span class="badge">Classical</span>
+                </div>
+                <div class="item-description">Uses a keyword to create multiple Caesar cipher shifts</div>
             </div>
         </div>
+
         <div class="section">
-            <div class="title">Modern Programming</div>
-            <div class="item">
-                <div class="item-name">RSA</div>
-                <div class="item-description">Public-key cryptography system</div>
+            <div class="title">
+                <i class="fas fa-microchip"></i>
+                Modern Cipher
             </div>
             <div class="item">
-                <div class="item-name">AES</div>
-                <div class="item-description">Advanced Encryption Standard</div>
+                <div class="item-name">
+                    <i class="fas fa-lock"></i>
+                    RSA
+                    <span class="badge">Modern</span>
+                </div>
+                <div class="item-description">Secure encryption using prime numbers and public-private key pairs</div>
             </div>
             <div class="item">
-                <div class="item-name">DES</div>
-                <div class="item-description">Data Encryption Standard</div>
+                <div class="item-name">
+                    <i class="fas fa-shield-alt"></i>
+                    AES
+                    <span class="badge">Modern</span>
+                </div>
+                <div class="item-description">Modern block cipher standard for secure data encryption</div>
+            </div>
+            <div class="item">
+                <div class="item-name">
+                    <i class="fas fa-history"></i>
+                    DES
+                    <span class="badge">Modern</span>
+                </div>
+                <div class="item-description">Legacy block cipher algorithm with 56-bit key</div>
+            </div>
+            <div class="item">
+                <div class="item-name">
+                    <i class="fas fa-key"></i>
+                    Symmetric Crypto
+                    <span class="badge">Modern</span>
+                </div>
+                <div class="item-description">Encryption method using the same key for encoding and decoding</div>
+            </div>
+            <div class="item">
+                <div class="item-name">
+                    <i class="fas fa-keys"></i>
+                    Asymmetric Crypto
+                    <span class="badge">Modern</span>
+                </div>
+                <div class="item-description">Encryption using different keys for encoding and decoding</div>
             </div>
         </div>
     </div>
-    <script>
-        const pages = {
-            'Caesar Cipher': 'pages/caesar.html',
-            'Playfair Cipher': 'pages/playfair.html',
-            'Permutation Cipher': 'pages/permutation.html',
-            'Substitution Cipher': 'pages/substitution.html',
-            'Vigenère Cipher': 'pages/vigenere.html',
-            'RSA': 'pages/rsa.html',
-            'AES': 'pages/aes.html',
-            'DES': 'pages/des.html'
-        };
 
-        document.querySelectorAll('.item').forEach(item => {
-            item.addEventListener('click', () => {
-                const name = item.querySelector('.item-name').textContent;
-                if (pages[name]) {
-                    window.location.href = pages[name];
-                }
-            });
-        });
-    </script>
-    <script>
-        document.querySelectorAll('.item').forEach(item => {
-            item.addEventListener('mouseover', () => {
-                item.style.backgroundColor = '#87CEFA'; // Darker blue on hover
-            });
+    <footer class = "footer">
+        <p>© <span id="year"></span> Võ Nghĩa An. Lớp Khoa học máy tính khóa 63 UTC</p>
+        <p>Thanks for stopping by my website!</p>
+        <script>
+          document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+      </footer>
+
+<script>
+    const pages = {
+        'Caesar Cipher': 'pages/caesar.html',
+        'Playfair Cipher': 'pages/playfair.html',
+        'Permutation Cipher': 'pages/permutation.html',
+        'Substitution Cipher': 'pages/substitution.html',
+        'Vigenère Cipher': 'pages/vigenere.html',
+        'RSA': 'pages/rsa.html',
+        'AES': 'pages/aes.html',
+        'DES': 'pages/des.html',
+        'Symmetric Crypto': 'pages/symmetric-crypto-demo.html',
+        'Asymmetric Crypto': 'pages/asymmetric-crypto-demo.html'
+    };
+
+    // Sửa phần xử lý click event
+    document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('click', () => {
+            // Lấy text content và loại bỏ badge
+            const itemName = item.querySelector('.item-name').textContent
+                .replace('Classical', '')
+                .replace('Modern', '')
+                .trim();
             
-            item.addEventListener('mouseout', () => {
-                item.style.backgroundColor = '#1E90FF'; // Return to original color
-            });
+            if (pages[itemName]) {
+                window.location.href = pages[itemName];
+            }
         });
-    </script>
+    });
+
+    // Theme toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+    });
+
+    // Add animation delay to items
+    document.querySelectorAll('.item').forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`;
+    });
+</script>
 </body>
 </html>
