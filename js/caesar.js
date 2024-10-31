@@ -13,6 +13,7 @@ class CaesarCipher {
     initializeEventListeners() {
         ['input', 'change'].forEach(event => {
             this.input.addEventListener(event, () => this.process());
+
             this.shift.addEventListener(event, () => {
                 this.process();
                 this.updateAlphabetDisplay(parseInt(this.shift.value) || 3);
@@ -63,6 +64,7 @@ class CaesarCipher {
             .join('');
     }
 
+
     updateAlphabetDisplay(shift) {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const shiftedAlphabet = alphabet.slice(shift) + alphabet.slice(0, shift);
@@ -82,8 +84,8 @@ class CaesarCipher {
         if (result) this.output.value = result;
     }
 }
-
 // Initialize when the document is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new CaesarCipher();
+
 });
