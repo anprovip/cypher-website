@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>RSA Algorithm Demo</title>
+    <style>
+        :root {
+            --primary-blue: #e6f3ff;
+            --accent-blue: #2196F3;
+            --hover-blue: #1976D2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            background-color: var(--primary-blue);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin: 20px 0;
+        }
+        
+        label {
+            font-weight: 500;
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 10px;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background: var(--hover-blue);
+        }
+        
+        .steps-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--primary-blue);
+            border-radius: 6px;
+        }
+        
+        .step pre {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .keys-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .key-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .key-box h3 {
+            color: var(--accent-blue);
+            margin-top: 0;
+        }
+
+        #steps h3 {
+            color: var(--accent-blue);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/index.html" class="back-button">← Back</a>
+    <div class="container">
+        <h1>RSA Algorithm</h1>
+        
+        <div class="input-group">
+            <label for="p">First Prime Number (p):</label>
+            <input type="number" id="p" value="61">
+        </div>
+        
+        <div class="input-group">
+            <label for="q">Second Prime Number (q):</label>
+            <input type="number" id="q" value="53">
+        </div>
+        
+        <div class="input-group">
+            <label for="e">Public Exponent (e):</label>
+            <input type="number" id="e" value="17">
+        </div>
+        
+        <div class="input-group">
+            <label for="message">Message (M):</label>
+            <input type="number" id="message" value="65">
+        </div>
+        
+        <button onclick="generateKeys()">Generate Keys</button>
+        <button onclick="encryptMessage()">Encrypt</button>
+        <button onclick="decryptMessage()">Decrypt</button>
+        
+        <div class="steps-container">
+            <div class="keys-display">
+                <div class="key-box">
+                    <h3>Public Key (PU)</h3>
+                    <div id="public-key"></div>
+                </div>
+                <div class="key-box">
+                    <h3>Private Key (PR)</h3>
+                    <div id="private-key"></div>
+                </div>
+            </div>
+            <div id="steps">
+                <!-- Steps will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script src = "/js/rsa.js"></script>
+</body>
+</html>
