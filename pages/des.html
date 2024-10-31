@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES Encryption</title>
+    <style>
+        :root {
+            --primary-blue: #e6f3ff;
+            --accent-blue: #2196F3;
+            --hover-blue: #1976D2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            background-color: var(--primary-blue);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .input-group {
+            margin: 20px 0;
+        }
+        
+        label {
+            font-weight: 500;
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 16px;
+        }
+        
+        button {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background: var(--hover-blue);
+        }
+        
+        .steps-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--primary-blue);
+            border-radius: 6px;
+        }
+        
+        .step pre {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DES Encryption Demo</h1>
+        
+        <div class="input-group">
+            <label for="key">Key (Hex - 64 bits):</label>
+            <input type="text" id="key" value="133457799BBCDFF1">
+        </div>
+        
+        <div class="input-group">
+            <label for="plaintext">Plaintext (Hex - 64 bits):</label>
+            <input type="text" id="plaintext" value="0123456789ABCDEF">
+        </div>
+        
+        <button onclick="startEncryption()">Encrypt</button>
+        
+        <div id="steps" class="steps-container">
+            <!-- Steps will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script src="/js/des.js"> </script>
+</body>
+</html>
