@@ -3,16 +3,36 @@ class CaesarCipher {
         this.input = document.getElementById('input');
         this.output = document.getElementById('output');
         this.shift = document.getElementById('shift');
-        this.modeToggle = document.getElementById('modeToggle');
+        this.encodeTab = document.getElementById('encodeTab');
+        this.decodeTab = document.getElementById('decodeTab');
+        this.isDecryptMode = false;
         this.initializeEventListeners();
+        this.updateAlphabetDisplay(parseInt(this.shift.value) || 3);
     }
 
     initializeEventListeners() {
         ['input', 'change'].forEach(event => {
             this.input.addEventListener(event, () => this.process());
-            this.shift.addEventListener(event, () => this.process());
+
+            this.shift.addEventListener(event, () => {
+                this.process();
+                this.updateAlphabetDisplay(parseInt(this.shift.value) || 3);
+            });
         });
-        this.modeToggle.addEventListener('change', () => this.process());
+
+        this.encodeTab.addEventListener('click', () => {
+            this.isDecryptMode = false;
+            this.encodeTab.classList.add('active');
+            this.decodeTab.classList.remove('active');
+            this.process();
+        });
+
+        this.decodeTab.addEventListener('click', () => {
+            this.isDecryptMode = true;
+            this.decodeTab.classList.add('active');
+            this.encodeTab.classList.remove('active');
+            this.process();
+        });
     }
 
     validateInput() {
@@ -44,55 +64,28 @@ class CaesarCipher {
             .join('');
     }
 
+
+    updateAlphabetDisplay(shift) {
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const shiftedAlphabet = alphabet.slice(shift) + alphabet.slice(0, shift);
+        
+        const cells = document.querySelectorAll('.shifted-row td');
+        for (let i = 0; i < shiftedAlphabet.length; i++) {
+            cells[i].textContent = shiftedAlphabet[i];
+        }
+    }
+
     process() {
-        const isDecryptMode = this.modeToggle.checked;
         const result = this.caesar(
             this.input.value,
             parseInt(this.shift.value) || 3,
-            isDecryptMode
+            this.isDecryptMode
         );
         if (result) this.output.value = result;
     }
 }
-
-new CaesarCipher();
-
-// Add this to caesar.js
-function updateAlphabetDisplay(shift) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let shiftedAlphabet = alphabet.slice(shift) + alphabet.slice(0, shift);
-    
-    // Update shifted alphabet cells
-    const cells = document.querySelectorAll('tr:nth-child(2) td');
-    for (let i = 0; i < shiftedAlphabet.length; i++) {
-        cells[i].textContent = shiftedAlphabet[i];
-    }
-}
-
-// Add event listener when document loads
-function updateAlphabetDisplay(shift) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let shiftedAlphabet = alphabet.slice(shift) + alphabet.slice(0, shift);
-    
-    // Update shifted alphabet cells
-    const cells = document.querySelectorAll('tbody tr td');
-    for (let i = 0; i < shiftedAlphabet.length; i++) {
-        cells[i].textContent = shiftedAlphabet[i];
-    }
-}
-
-// Add event listener when document loads
+// Initialize when the document is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const shiftInput = document.getElementById('shift');
-    
-    // Initial display
-    updateAlphabetDisplay(parseInt(shiftInput.value) || 3);
-    
-    // Update when shift changes
-    shiftInput.addEventListener('input', (e) => {
-        let shift = parseInt(e.target.value);
-        if (shift >= 1 && shift <= 25) {
-            updateAlphabetDisplay(shift);
-        }
-    });
+    new CaesarCipher();
+
 });
